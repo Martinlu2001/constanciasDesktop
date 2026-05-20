@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Generacion de constancias</title>
+</head>
+
+<body>
+    <!-- This container is for styling purposes. -->
+    <!-- <div class="simple-form-container">
+        <form action="#" method="post">
+            <div class="form-group">
+                <label for="apelliMat">Apellido Paterno</label>
+                <input type="text" id="apelliMat" name="apelliMat" required>
+            </div>
+
+            <div class="form-group">
+                <label for="apelliPat">Apellido Materno</label>
+                <input type="text" id="apelliPat" name="apelliPat" required>
+            </div>
+
+            <div class="form-group">
+                <label for="name">Nombre</label>
+                <input type="text" id="name" name="name">
+            </div>
+
+            <button type="submit" class="submit-btn">Buscar</button>
+        </form>
+    </div> -->
+    <div class="card">
+
+        <!-- Mensaje de error -->
+        <div class="error-msg" id="error-msg">
+            Por favor completa todos los campos.
+        </div>
+
+        <!-- Usuario -->
+        <div class="form-group">
+            <label for="usuario">Apellido Paterno <span class="required">*</span></label>
+            <input type="text" id="user" name="user"  autocomplete="username" />
+        </div>
+
+        <div class="form-group">
+            <label for="usuario">Apellido Materno <span class="required">*</span></label>
+            <input type="text" id="user" name="user"  autocomplete="username" />
+        </div>
+
+        <div class="form-group">
+            <label for="usuario">Nombre <span class="required">*</span></label>
+            <input type="text" id="user" name="user"  autocomplete="username" />
+        </div>
+
+        <a href="../index.html" class="forgot">Buscar por codigo</a>
+        
+        <!-- Botón ingresar -->
+        <button class="btn-buscar" onclick="handleLogin()" type="button">Buscar</button>
+
+    </div>
+
+
+    
+    <script type="module" src="../src/renderer.js"></script>
+</body>
+
+</html>
