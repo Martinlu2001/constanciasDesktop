@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sistema de Generacion de constancias</title>
 </head>
+
 <body>
 
   <div class="card">
@@ -13,20 +15,21 @@
     <div class="logo">
       <div class="logo-box">
         <div class="logo-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="20 6 9 17 4 12"/>
+          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"
+            stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12" />
           </svg>
         </div>
         <div class="logo-text">
-          <div class="dpa">DPA</div>
-          <div class="ura">URA</div>
-          <div class="subtitle">Unidad de Registro Académico</div>
+          <!-- <div class="dpa"></div> -->
+          <div class="ura">UNIDAD DE TESORERÍA</div>
+          <div class="subtitle">Area de constancias</div>
         </div>
       </div>
     </div>
 
     <!-- Título -->
-    <h1>Sistema de generacion de constancias</h1>
+    <h1>Sistema de generación de constancias</h1>
 
     <!-- Mensaje de error -->
     <div class="error-msg" id="error-msg">
@@ -40,7 +43,7 @@
     </div>
 
     <a href="./pages/nombres.html" class="forgot">Buscar por nombres</a>
-    
+
 
     <!-- Botón ingresar -->
     <button class="btn-buscar" onclick="handleLogin()" type="button">Buscar</button>
@@ -48,26 +51,13 @@
   </div>
 
   <script>
-    function togglePassword() {
-      const input = document.getElementById('password');
-      const icon = document.getElementById('eye-icon');
+    const input = document.getElementById("user");
+    input.addEventListener("input", function () {
+      this.value = this.value.replace(/\D/g, "");
+    });
+  </script>
 
-      if (input.type === 'password') {
-        input.type = 'text';
-        icon.innerHTML = `
-          <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
-          <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
-          <line x1="1" y1="1" x2="23" y2="23"/>
-        `;
-      } else {
-        input.type = 'password';
-        icon.innerHTML = `
-          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-          <circle cx="12" cy="12" r="3"/>
-        `;
-      }
-    }
-
+  <script>
     function handleLogin() {
       const usuario = document.getElementById('usuario').value.trim();
       const password = document.getElementById('password').value.trim();
@@ -95,13 +85,11 @@
     }
 
     // Permitir Enter para iniciar sesión
-    document.addEventListener('keydown', function(e) {
+    document.addEventListener('keydown', function (e) {
       if (e.key === 'Enter') handleLogin();
     });
   </script>
-<script type="module" src="/src/renderer.js"></script>
+  <script type="module" src="/src/renderer.js"></script>
 </body>
+
 </html>
-
-
-    
