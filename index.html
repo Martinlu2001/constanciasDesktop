@@ -4,7 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sistema de Generacion de constancias</title>
+  <link rel="stylesheet" href="./src/index.css">
+  <title>Sistema de Generación de constancias</title>
 </head>
 
 <body>
@@ -23,7 +24,7 @@
         <div class="logo-text">
           <!-- <div class="dpa"></div> -->
           <div class="ura">UNIDAD DE TESORERÍA</div>
-          <div class="subtitle">Area de constancias</div>
+          <div class="subtitle">Área de constancias</div>
         </div>
       </div>
     </div>
@@ -32,64 +33,24 @@
     <h1>Sistema de generación de constancias</h1>
 
     <!-- Mensaje de error -->
-    <div class="error-msg" id="error-msg">
+    <!-- <div class="error-msg" id="error-msg">
       Por favor completa todos los campos.
-    </div>
+    </div> -->
 
-    <!-- Usuario -->
+    <!-- Busqueda codigo Usuario -->
     <div class="form-group">
-      <label for="usuario">Codigo trabajador <span class="required">*</span></label>
+      <label for="usuario">Código trabajador <span class="required">*</span></label>
       <input type="text" id="user" name="user" maxlength="4" autocomplete="username" />
     </div>
 
     <a href="./pages/nombres.html" class="forgot">Buscar por nombres</a>
 
-
-    <!-- Botón ingresar -->
-    <button class="btn-buscar" onclick="handleLogin()" type="button">Buscar</button>
+    <!-- Botón buscar -->
+    <button class="btn-buscar"  type="button">Buscar</button>
 
   </div>
 
-  <script>
-    const input = document.getElementById("user");
-    input.addEventListener("input", function () {
-      this.value = this.value.replace(/\D/g, "");
-    });
-  </script>
-
-  <script>
-    function handleLogin() {
-      const usuario = document.getElementById('usuario').value.trim();
-      const password = document.getElementById('password').value.trim();
-      const errorMsg = document.getElementById('error-msg');
-
-      if (!usuario || !password) {
-        errorMsg.classList.add('show');
-        return;
-      }
-
-      errorMsg.classList.remove('show');
-
-      // Aquí va tu lógica de autenticación (fetch, axios, etc.)
-      // Ejemplo:
-      // fetch('/api/login', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({ usuario, password })
-      // })
-      // .then(res => res.json())
-      // .then(data => { window.location.href = '/dashboard'; })
-      // .catch(err => console.error(err));
-
-      alert('Login correcto! Conecta tu backend aquí.');
-    }
-
-    // Permitir Enter para iniciar sesión
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter') handleLogin();
-    });
-  </script>
-  <script type="module" src="/src/renderer.js"></script>
+  <script type="module" src="./src/renderer.js"></script>
 </body>
 
 </html>

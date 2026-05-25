@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../src/styles/main.css">
+
+    <!-- <link href="../public/assets/DataTables/datatables.css" rel="stylesheet" type="text/css"> -->
+    <link href="../public/assets/DataTables/datatables.min.css" rel="stylesheet">
+    <title>Sistema de Generación de constancias</title>
+</head>
+
+<body>
+    <div class="card1">
+        <form class="fs-form">
+            <legend class="fs-fieldset-title">Información personal</legend>
+            <div class="fs-row">
+                <div class="fs-field">
+                    <label class="fs-label" for="coduser">Código UNT</label>
+                    <input class="fs-input" id="coduser" name="coduser" readonly />
+                </div>
+                <div class="fs-field">
+                    <!-- <label class="fs-label" for="dniuser">DNI</label>
+                    <input class="fs-input" id="dniuser" name="dniuser" readonly /> -->
+                </div>
+            </div>
+
+            <div class="fs-row">
+                <div class="fs-field">
+                    <label class="fs-label" for="apellipat">Apellido paterno</label>
+                    <input class="fs-input" id="apellipat" name="apellipat" readonly />
+                </div>
+                <div class="fs-field">
+                    <label class="fs-label" for="apellimat">Apellido materno</label>
+                    <input class="fs-input" id="apellimat" name="apellimat" readonly />
+                </div>
+            </div>
+
+            <div class="fs-field">
+                <label class="fs-label" for="nameuser">Nombres</label>
+                <input class="fs-input" id="nameuser" name="nameuser" readonly />
+            </div>
+        </form>
+    </div>
+
+    <!-- <div class="card">
+
+    <legend class="fs-fieldset-title">Historial de boletas</legend>
+        </div> -->
+    <!-- DataTales Example -->
+     <!-- Page Wrapper -->
+
+    <div class="card card1 shadow mb-4">
+        <div class="card-header py-3">
+            <legend class="fs-fieldset-title">Historial de boletas</legend>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered display" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Año</th>
+                            <th>Mes</th>
+                            <th>Tipo</th>
+                            <th>Condicion</th>
+                            <th>Accion</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Año</th>
+                            <th>Mes</th>
+                            <th>Tipo</th>
+                            <th>Condicion</th>
+                            <th>Accion</th>
+                        </tr>
+                    </tfoot>
+                    <tbody id="body-table">
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="card1">
+        <!-- download constancias here -->
+        <legend class="fs-fieldset-title">Descargar constancia</legend>
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <!-- <script src="../public/assets/DataTables/datatables.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../public/assets/DataTables/datatables.min.js"></script>
+    <!-- <script>
+        $(document).ready(function() {
+            $('#dataTable').DataTable();
+        });
+    </script> -->
+    <script type="module" src="../src/mainRenderer.js"></script>
+</body>
+
+</html>
