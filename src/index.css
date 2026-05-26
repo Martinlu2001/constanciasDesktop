@@ -7,233 +7,233 @@
   padding: 2rem;
 }*/
 * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-    body {
-      background: #EEF2F7;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: Arial, sans-serif;
-    }
+body {
+  background: #EEF2F7;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+}
 
-    .card {
-      background: #ffffff;
-      border-radius: 16px;
-      padding: 2.5rem 2rem;
-      width: 100%;
-      max-width: 420px;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-    }
+.card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 2.5rem 2rem;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+}
 
-    /* Logo */
-    .logo {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 2rem;
-    }
+/* Logo */
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
 
-    .logo-box {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      border: 2px solid #b4bbb9;
-      border-radius: 8px;
-      padding: 8px 14px;
-    }
+.logo-box {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: 2px solid #b4bbb9;
+  border-radius: 8px;
+  padding: 8px 14px;
+}
 
-    .logo-icon {
-      width: 38px;
-      height: 38px;
-      background: #1D9E75;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+.logo-icon {
+  width: 38px;
+  height: 38px;
+  background: #1D9E75;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-    .logo-icon svg {
-      width: 20px;
-      height: 20px;
-    }
+.logo-icon svg {
+  width: 20px;
+  height: 20px;
+}
 
-    .logo-text {
-      text-align: left;
-      line-height: 1.2;
-    }
+.logo-text {
+  text-align: left;
+  line-height: 1.2;
+}
 
-    .logo-text .dpa {
-      font-size: 10px;
-      font-weight: 500;
-      color: #888;
-      letter-spacing: 0.5px;
-    }
+.logo-text .dpa {
+  font-size: 10px;
+  font-weight: 500;
+  color: #888;
+  letter-spacing: 0.5px;
+}
 
-    .logo-text .ura {
-      font-size: 22px;
-      font-weight: 700;
-      color: #1D4ED8;
-      line-height: 1;
-    }
+.logo-text .ura {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1D4ED8;
+  line-height: 1;
+}
 
-    .logo-text .subtitle {
-      font-size: 9px;
-      color: #555;
-      white-space: nowrap;
-    }
+.logo-text .subtitle {
+  font-size: 9px;
+  color: #555;
+  white-space: nowrap;
+}
 
-    /* Título */
-    h1 {
-      text-align: center;
-      font-size: 22px;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: #1a1a2e;
-      margin-bottom: 1.75rem;
-    }
+/* Título */
+h1 {
+  text-align: center;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #1a1a2e;
+  margin-bottom: 1.75rem;
+}
 
-    /* Grupos de formulario */
-    .form-group {
-      margin-bottom: 1.25rem;
-    }
+/* Grupos de formulario */
+.form-group {
+  margin-bottom: 1.25rem;
+}
 
-    label {
-      display: block;
-      font-size: 14px;
-      color: #1a1a2e;
-      margin-bottom: 6px;
-    }
+label {
+  display: block;
+  font-size: 14px;
+  color: #1a1a2e;
+  margin-bottom: 6px;
+}
 
-    label .required {
-      color: #E24B4A;
-    }
+label .required {
+  color: #E24B4A;
+}
 
-    input[type="text"],
-    input[type="password"] {
-      width: 100%;
-      padding: 11px 14px;
-      border: 1px solid #d1d5db;
-      border-radius: 8px;
-      font-size: 15px;
-      color: #1a1a2e;
-      outline: none;
-      transition: border-color 0.2s;
-      background: #fff;
-    }
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 15px;
+  color: #1a1a2e;
+  outline: none;
+  transition: border-color 0.2s;
+  background: #fff;
+}
 
-    input[type="text"]:focus,
-    input[type="password"]:focus {
-      border-color: #1D9E75;
-    }
+input[type="text"]:focus,
+input[type="password"]:focus {
+  border-color: #1D9E75;
+}
 
-    /* Wrapper contraseña */
-    .password-wrapper {
-      position: relative;
-    }
+/* Wrapper contraseña */
+.password-wrapper {
+  position: relative;
+}
 
-    .password-wrapper input {
-      padding-right: 44px;
-    }
+.password-wrapper input {
+  padding-right: 44px;
+}
 
-    .toggle-eye {
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: #9ca3af;
-      padding: 4px;
-      display: flex;
-      align-items: center;
-      transition: color 0.2s;
-    }
+.toggle-eye {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #9ca3af;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s;
+}
 
-    .toggle-eye:hover {
-      color: #1D9E75;
-    }
+.toggle-eye:hover {
+  color: #1D9E75;
+}
 
-    /* Enlace olvidé contraseña */
-    .forgot {
-      display: inline-block;
-      font-size: 13px;
-      color: #1D9E75;
-      text-decoration: none;
-      margin-bottom: 1.5rem;
-      margin-top: -0.5rem;
-    }
+/* Enlace olvidé contraseña */
+.forgot {
+  display: inline-block;
+  font-size: 13px;
+  color: #1D9E75;
+  text-decoration: none;
+  margin-bottom: 1.5rem;
+  margin-top: -0.5rem;
+}
 
-    .forgot:hover {
-      text-decoration: underline;
-    }
+.forgot:hover {
+  text-decoration: underline;
+}
 
-    /* Botón */
-    .btn-buscar {
-      width: 100%;
-      padding: 13px;
-      background: #1c84ce;
-      border: none;
-      border-radius: 50px;
-      color: white;
-      font-size: 15px;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
+/* Botón */
+.btn-buscar {
+  width: 100%;
+  padding: 13px;
+  background: #1c84ce;
+  border: none;
+  border-radius: 50px;
+  color: white;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s;
+}
 
-    .btn-buscar:hover {
-      background: #0a448f;
-    }
+.btn-buscar:hover {
+  background: #0a448f;
+}
 
-    .btn-buscar:active {
-      transform: scale(0.98);
-    }
+.btn-buscar:active {
+  transform: scale(0.98);
+}
 
-    /* Divisor */
-    .divider {
-      border: none;
-      border-top: 1px solid #e5e7eb;
-      margin: 1.5rem 0 1rem;
-    }
+/* Divisor */
+.divider {
+  border: none;
+  border-top: 1px solid #e5e7eb;
+  margin: 1.5rem 0 1rem;
+}
 
-    /* Pie */
-    .card-footer {
-      text-align: center;
-      font-size: 14px;
-      color: #6b7280;
-    }
+/* Pie */
+.card-footer {
+  text-align: center;
+  font-size: 14px;
+  color: #6b7280;
+}
 
-    .card-footer a {
-      color: #1D9E75;
-      text-decoration: none;
-      font-weight: 500;
-    }
+.card-footer a {
+  color: #1D9E75;
+  text-decoration: none;
+  font-weight: 500;
+}
 
-    .card-footer a:hover {
-      text-decoration: underline;
-    }
+.card-footer a:hover {
+  text-decoration: underline;
+}
 
-    /* Mensaje de error */
-    .error-msg {
-      display: none;
-      background: #fff0f0;
-      color: #c0392b;
-      border: 1px solid #f5c6c6;
-      border-radius: 8px;
-      padding: 10px 14px;
-      font-size: 13px;
-      margin-bottom: 1rem;
-    }
+/* Mensaje de error */
+.error-msg {
+  display: none;
+  background: #fff0f0;
+  color: #c0392b;
+  border: 1px solid #f5c6c6;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  margin-bottom: 1rem;
+}
 
-    .error-msg.show {
-      display: block;
-    }
+.error-msg.show {
+  display: block;
+}

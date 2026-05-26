@@ -13,6 +13,16 @@ export default function setUpHandlers(db){
     ipcMain.handle('constancias:getUserPlanilla',(_,idUsers)=>{
         return db.getUserPlanilla(idUsers);
     });
+
+    //mostras haño y mes de una planilla especifica
+    ipcMain.handle("constancias:getDatePlanilla", async (event, idPlanilla) => {
+        return db.getDatePlanilla(idPlanilla);
+    });
+
+    //mostrar haberes  y descuentos de una planilla especifica
+    ipcMain.handle("constancias:getDetallePlanilla", async (event, idPlanillas) => {
+        return db.getDetallePlanilla(idPlanillas);
+    });
     //generar constancia
     /*ipcMain.handle('constancias:',(_,)=>{
 

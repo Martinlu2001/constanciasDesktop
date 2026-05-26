@@ -6,8 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../src/styles/main.css">
 
-    <!-- <link href="../public/assets/DataTables/datatables.css" rel="stylesheet" type="text/css"> -->
-    <link href="../public/assets/DataTables/datatables.min.css" rel="stylesheet">
+    <link href="../public/assets/DataTables/datatables.css" rel="stylesheet" type="text/css">
+    <!-- <link href="../public/assets/DataTables/datatables.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Sistema de Generación de constancias</title>
 </head>
 
@@ -42,22 +43,18 @@
                 <input class="fs-input" id="nameuser" name="nameuser" readonly />
             </div>
         </form>
+         <div class="fs-button-group">
+            <button class="btn btn-secondary btn-sm" type="" id="regresar"><i class="fa fa-arrow-left"></i> Regresar</button>
+        </div>
     </div>
 
-    <!-- <div class="card">
-
-    <legend class="fs-fieldset-title">Historial de boletas</legend>
-        </div> -->
-    <!-- DataTales Example -->
-     <!-- Page Wrapper -->
-
-    <div class="card card1 shadow mb-4">
-        <div class="card-header py-3">
+    <div class="card1">
+        <div>
             <legend class="fs-fieldset-title">Historial de boletas</legend>
         </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered display" id="dataTable" width="100%" cellspacing="0">
+        <div>
+            <div class="">
+                <table id="dataTable" class="display">
                     <thead>
                         <tr>
                             <th>Año</th>
@@ -84,15 +81,62 @@
         </div>
     </div>
 
+    <!-- download constancias here -->
     <div class="card1">
-        <!-- download constancias here -->
         <legend class="fs-fieldset-title">Descargar constancia</legend>
+        <div class="">
+            <div class="fs-row">
+                <div class="fs-field">
+                    <label class="fs-label" for="">Desde</label>
+                    <select class="fs-input" aria-label="Default select example">
+                        <option selected>Open this select menu</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                </div>
+                <div class="fs-field">
+                    <label class="fs-label" for="">Hasta</label>
+                    <select class="fs-input" aria-label="Default select example">
+                        <option selected>Open this select menu</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="fs-button-group">
+            <button class="btn btn-primary btn-sm" type=""><i class="fa fa-print"></i> Descargar constancia</button>
+        </div>
     </div>
 
-    <!-- Bootstrap core JavaScript-->
-    <!-- <script src="../public/assets/DataTables/datatables.js"></script> -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="../public/assets/DataTables/datatables.min.js"></script>
+        <!-- modal para ver haberes y descuentos-->
+    <div id="dataHaberDescView" class="mi-modal">
+        <div class="mi-modal-contenido">
+            <div class="mi-modal-header">
+                <h4 id="detallesPlanilla"></h4>
+                <span class="cerrar-modal">&times;</span>
+            </div>
+            <div class="fs-row1">
+                <div class="mi-modal-body">
+                    <label for="">Haberes</label>
+                    <textarea name="haberesView" id="haberesView" readonly></textarea>
+                </div>
+                <div class="mi-modal-body">
+                    <label for="">Descuentos</label>
+                    <textarea name="descuentosView" id="descuentosView" readonly></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- scripts -->
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+     <script src="../public/assets/Jquery/jquery.js"></script>
+    <script src="../public/assets/DataTables/datatables.js"></script>
+    <!-- <script src="../public/assets/DataTables/datatables.min.js"></script> -->
     <!-- <script>
         $(document).ready(function() {
             $('#dataTable').DataTable();
@@ -100,5 +144,4 @@
     </script> -->
     <script type="module" src="../src/mainRenderer.js"></script>
 </body>
-
 </html>

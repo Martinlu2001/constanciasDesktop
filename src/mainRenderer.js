@@ -22,8 +22,9 @@ function inicializarDataTable() {
     if ($.fn.DataTable && $('#dataTable').length) {
         dataTableInstance = $('#dataTable').DataTable({
             language: {
-                url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
+                url: 'spanish.json'
             },
+            responsive: true,
             pageLength: 10,
             lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
             destroy: false, // No destruir si existe
@@ -39,13 +40,13 @@ function actualizarDataTable(planillas) {
     tbody.empty();
     
     if (!planillas || planillas.length === 0) {
-        tbody.html(`
+        /*tbody.html(`
             <tr>
                 <td colspan="5" class="text-center text-muted">
                     No hay planillas registradas para este usuario
                 </td>
             </tr>
-        `);
+        `);*/
     } else {
         planillas.forEach(planilla => {
             tbody.append(`
@@ -55,7 +56,7 @@ function actualizarDataTable(planillas) {
                     <td>${planilla.tipo || planilla.tipoPlanillas_idtipoPlanilla || '-'}</td>
                     <td>${planilla.condicion || planilla.condicionPlanillas_idcondicionPlanillas || '-'}</td>
                     <td>
-                        <button class="btn btn-success btn-sm ver-planilla" data-id="${planilla.idPlanillas}"><i class="fa fa-eye"></i>
+                        <button class="btn btn-success btn-sm ver-planilla view-plani" data-id="${planilla.idPlanillas}"><i class="fa fa-eye"></i>
                             Ver
                         </button>
                     </td>
@@ -72,7 +73,83 @@ function actualizarDataTable(planillas) {
     }
 }
 
-// CARGAR TODO
+// ABRIR MODAL Y VER DETALLE PLANILLA
+document.addEventListener("click", async (e) => {
+
+    const btn = e.target.closest(".view-plani");
+
+    if (!btn) return;
+
+    const idPlanillas = parseInt(btn.dataset.id);
+    const idPlanilla = parseInt(btn.dataset.id);
+
+    try {
+
+        // CONSULTAR DETALLE DE SOLO ESA PLANILLA
+        const detalle = await window.api.getDetallePlanilla(idPlanillas);
+
+        let haberesText = "";
+        let descuentosText = "";
+
+        const datePlanillas = await window.api.getDatePlanilla(idPlanilla);
+        // HABERES
+        detalle.haberes.forEach(haber => {
+            const maxNameLength = 40; // Define el ancho máximo para el nombre
+            const paddedName = haber.nameHaber.padEnd(maxNameLength, ' ');
+            haberesText +=
+                `${paddedName}: S/ ${parseFloat(haber.montoHaber).toFixed(2)}\n`;
+
+        });
+
+        // DESCUENTOS
+        detalle.descuentos.forEach(descuento => {
+            const maxNameLength = 40; // Define el ancho máximo para el nombre
+            const paddedName = descuento.nameDescuento.padEnd(maxNameLength, ' ');
+            descuentosText +=
+                `${paddedName}: S/ ${parseFloat(descuento.montoDescuento).toFixed(2)}\n`;
+
+        });
+
+        // MOSTRAR MODAL
+        const modal = document.getElementById("dataHaberDescView");
+
+        modal.style.display = "block";
+        
+        document.getElementById("detallesPlanilla").innerHTML = `Detalles de planilla ${datePlanillas.anio} - ${datePlanillas.mes}`;
+
+        document.getElementById("haberesView").value =
+            haberesText || "No hay haberes registrados";
+
+        document.getElementById("descuentosView").value =
+            descuentosText || "No hay descuentos registrados";
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert("Error al obtener detalle de planilla");
+
+    }
+
+});
+
+// Cerrar modal al hacer clic en la X
+document.addEventListener("click", (e) => {
+    if (e.target.classList.contains('cerrar-modal')) {
+        const modal = document.getElementById('dataHaberDescView');
+        modal.style.display = 'none';
+    }
+});
+
+// Cerrar modal al hacer clic fuera del contenido
+document.addEventListener("click", (e) => {
+    const modal = document.getElementById('dataHaberDescView');
+    if (e.target === modal) {
+        modal.style.display = 'none';
+    }
+});
+
+// carga info y planillas
 async function cargarDatos() {
     try {
         // BUSCAR USUARIO
@@ -113,6 +190,11 @@ async function cargarDatos() {
         alert('Error al cargar los datos: ' + error.message);
     }
 }
+
+//regresar al index
+document.getElementById("regresar").onclick = function () {
+    window.location.href = "../index.html";
+};
 
 // INICIAR CUANDO EL DOM ESTÉ LISTO
 $(document).ready(function() {

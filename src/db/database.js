@@ -34,11 +34,9 @@ class AppDatabase{
 
     //mostrar datos y planillas usuario
     getUserPlanilla(idUsers){
-        //const stmt = this.db.prepare('SELECT * FROM Users WHERE idUsers = ?')
         const stmt = this.db.prepare(`
-         SELECT 
+           SELECT 
             p.idPlanillas,
-
             a.nameAnioPlanilla AS anio,
             m.nameMesPlanilla AS mes,
             t.nameTipoPlanilla AS tipo,
@@ -64,7 +62,62 @@ class AppDatabase{
         return stmt.all(idUsers);
     }
 
-    //buscar constancia especifica
+    getDatePlanilla(idPlanilla){
+        const stmt = this.db.prepare(`
+            SELECT
+                a.nameAnioPlanilla AS anio,
+                m.nameMesPlanilla AS mes
+
+            FROM Planillas p
+
+            INNER JOIN anioPlanillas a
+                ON p.anioPlanillas_idanioPlanillas = a.idanioPlanillas
+
+            INNER JOIN mesPlanillas m
+                ON p.mesPlanillas_idmesPlanillas = m.idmesPlanillas
+
+            WHERE idPlanillas = ?
+        `);
+        return stmt.get(idPlanilla);
+    }
+
+    // OBTENER DETALLE DE UNA PLANILLA
+    getDetallePlanilla(idPlanillas) {
+        // HABERES
+        const stmtHaberes = this.db.prepare(`
+            SELECT
+                h.nameHaber,
+                phh.montoHaber
+
+            FROM Planillas_has_Haberes phh
+
+            INNER JOIN Haberes h
+                ON phh.Haberes_idHaberes = h.idHaberes
+
+            WHERE phh.Planillas_idPlanillas = ?
+        `);
+
+        // DESCUENTOS
+        const stmtDescuentos = this.db.prepare(`
+            SELECT
+                d.nameDescuento,
+                phd.montoDescuento
+
+            FROM Planillas_has_Descuentos phd
+
+            INNER JOIN Descuentos d
+                ON phd.Descuentos_idDescuentos = d.idDescuentos
+
+            WHERE phd.Planillas_idPlanillas = ?
+        `);
+
+        return {
+            haberes: stmtHaberes.all(idPlanillas),
+            descuentos: stmtDescuentos.all(idPlanillas)
+        };
+    }
+
+    //buscar constancia solicitada
     getConstancia(){}
 
     close(){
