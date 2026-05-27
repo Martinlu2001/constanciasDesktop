@@ -7,8 +7,12 @@
     <link rel="stylesheet" href="../src/styles/main.css">
 
     <link href="../public/assets/DataTables/datatables.css" rel="stylesheet" type="text/css">
+    <!-- <link href="../public/assets/DataTables/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="../public/assets/DataTables/dataTables.bootstrap5.css" rel="stylesheet" type="text/css"> -->
     <!-- <link href="../public/assets/DataTables/datatables.min.css" rel="stylesheet"> -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Sistema de Generación de constancias</title>
 </head>
 
@@ -43,8 +47,9 @@
                 <input class="fs-input" id="nameuser" name="nameuser" readonly />
             </div>
         </form>
-         <div class="fs-button-group">
-            <button class="btn btn-secondary btn-sm" type="" id="regresar"><i class="fa fa-arrow-left"></i> Regresar</button>
+        <div class="fs-button-group">
+            <button class="btn btn-secondary btn-sm" type="" id="regresar"><i class="fa fa-arrow-left"></i>
+                Regresar</button>
         </div>
     </div>
 
@@ -54,7 +59,7 @@
         </div>
         <div>
             <div class="">
-                <table id="dataTable" class="display">
+                <table id="dataTable" class="display compact cell-border">
                     <thead>
                         <tr>
                             <th>Año</th>
@@ -74,7 +79,7 @@
                         </tr>
                     </tfoot>
                     <tbody id="body-table">
-                        
+
                     </tbody>
                 </table>
             </div>
@@ -86,6 +91,20 @@
         <legend class="fs-fieldset-title">Descargar constancia</legend>
         <div class="">
             <div class="fs-row">
+                <div class="fs-field">
+                    <label class="fs-label" for="">Modo de seleccion</label>
+                    <select class="fs-input" aria-label="Default select example" name="select" id="tipoConstancia">
+                        <option selected hidden>Elija..</option>
+                        <option value="Especifico" class="constancia-especifica">Especifico</option>
+                        <option value="Rango" class="constancia-rango">Rango</option>
+                    </select>
+                </div>
+                <div class="fs-field">
+
+                </div>
+            </div>
+
+            <!-- <div class="fs-row">
                 <div class="fs-field">
                     <label class="fs-label" for="">Desde</label>
                     <select class="fs-input" aria-label="Default select example">
@@ -104,15 +123,68 @@
                         <option value="3">Three</option>
                     </select>
                 </div>
+            </div> -->
+        </div>
+
+        <!-- Contenedor para Especifico -->
+        <div id="panel-especifico" class="panel-constancia" style="display: none;">
+            <div class="fs-card">
+                <h4>Constancia Fecha Específica</h4>
+                <div class="fs-form-group">
+                    <label class="fs-label">Seleccione Fecha:</label>
+                    <input type="date" class="fs-input" id="fechaEspecifica">
+                </div>
+                <div class="fs-row1">
+                    <div class="fs-col">
+                        <label class="fs-label1">HABERES</label>
+                        <!-- Aquí tu contenido de haberes -->
+                    </div>
+                    <div class="fs-col">
+                        <label class="fs-label1">DESCUENTOS</label>
+                        <!-- Aquí tu contenido de descuentos -->
+                    </div>
+                </div>
+                <div class="fs-button-group">
+                    <button class="btn btn-primary btn-sm" type=""><i class="fa fa-print"></i> Descargar
+                        constancia</button>
+                </div>
             </div>
         </div>
 
-        <div class="fs-button-group">
-            <button class="btn btn-primary btn-sm" type=""><i class="fa fa-print"></i> Descargar constancia</button>
+        <!-- Contenedor para Rango -->
+        <div id="panel-rango" class="panel-constancia" style="display: none;">
+            <div class="fs-card">
+                <h4>Constancia por Rango de Fechas</h4>
+                <div class="fs-form-group">
+                    <label class="fs-label">:</label>
+                    <input type="date" class="fs-input" id="fechaInicio">
+                </div>
+                <div class="fs-form-group">
+                    <label class="fs-label">Fecha Fin:</label>
+                    <input type="date" class="fs-input" id="fechaFin">
+                </div>
+                <div class="fs-row1">
+                    <div class="fs-col">
+                        <label class="fs-label1">HABERES</label>
+                        <!-- Aquí tu contenido de haberes -->
+                    </div>
+                    <div class="fs-col">
+                        <label class="fs-label1">DESCUENTOS</label>
+                        <!-- Aquí tu contenido de descuentos -->
+                    </div>
+                </div>
+                <div class="fs-button-group">
+                    <button class="btn btn-primary btn-sm" type=""><i class="fa fa-print"></i> Descargar
+                        constancia</button>
+                </div>
+            </div>
         </div>
+        <!-- <div class="fs-button-group">
+            <button class="btn btn-primary btn-sm" type=""><i class="fa fa-print"></i> Descargar constancia</button>
+        </div> -->
     </div>
 
-        <!-- modal para ver haberes y descuentos-->
+    <!-- modal para ver haberes y descuentos-->
     <div id="dataHaberDescView" class="mi-modal">
         <div class="mi-modal-contenido">
             <div class="mi-modal-header">
@@ -121,20 +193,23 @@
             </div>
             <div class="fs-row1">
                 <div class="mi-modal-body">
-                    <label for="">Haberes</label>
+                    <label class="fs-label1">HABERES</label>
                     <textarea name="haberesView" id="haberesView" readonly></textarea>
                 </div>
+                <br>
                 <div class="mi-modal-body">
-                    <label for="">Descuentos</label>
+                    <label class="fs-label1">DESCUENTOS</label>
                     <textarea name="descuentosView" id="descuentosView" readonly></textarea>
                 </div>
             </div>
         </div>
     </div>
-    
+
     <!-- scripts -->
-    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
-     <script src="../public/assets/Jquery/jquery.js"></script>
+    <script src="../public/assets/Jquery/jquery.js"></script>
+    <!-- <script src="../public/assets/Jquery/jquery1.js"></script> -->
+    <!-- <script src="../public/assets/DataTables/bootstrap.bundle.min.js"></script>
+    <script src="../public/assets/DataTables/dataTables.bootstrap5.js"></script> -->
     <script src="../public/assets/DataTables/datatables.js"></script>
     <!-- <script src="../public/assets/DataTables/datatables.min.js"></script> -->
     <!-- <script>
@@ -144,4 +219,5 @@
     </script> -->
     <script type="module" src="../src/mainRenderer.js"></script>
 </body>
+
 </html>

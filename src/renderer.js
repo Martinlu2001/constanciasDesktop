@@ -17,7 +17,9 @@ async function buscarUsuario(){
         Swal.fire({
             icon: 'warning',
             title: 'Campo vacío',
-            text: 'Ingresa un código de trabajador'
+            text: 'Ingresa un código de trabajador',
+            timer: 1500,
+            showConfirmButton: false
         });
         return;
     }
@@ -31,7 +33,9 @@ async function buscarUsuario(){
             Swal.fire({
                 icon: 'error',
                 title: 'Código no encontrado',
-                text: 'El código ingresado no existe'
+                text: 'El código ingresado no existe',
+                timer: 1500,
+                showConfirmButton: false
             });
             return;
         }
@@ -44,7 +48,9 @@ async function buscarUsuario(){
         Swal.fire({
             icon: 'error',
             title: 'Error',
-            text: 'Ocurrió un problema'
+            text: 'Ocurrió un problema',
+            timer: 1500,
+            showConfirmButton: false
         });
     }
 }

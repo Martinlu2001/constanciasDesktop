@@ -27,6 +27,12 @@ function inicializarDataTable() {
             responsive: true,
             pageLength: 10,
             lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
+                columnDefs: [
+                {
+                    targets: "_all",
+                    className: "dt-center"
+                }
+            ],
             destroy: false, // No destruir si existe
             retrieve: false  // No recuperar instancia anterior
         });
@@ -98,7 +104,6 @@ document.addEventListener("click", async (e) => {
             const paddedName = haber.nameHaber.padEnd(maxNameLength, ' ');
             haberesText +=
                 `${paddedName}: S/ ${parseFloat(haber.montoHaber).toFixed(2)}\n`;
-
         });
 
         // DESCUENTOS
@@ -107,7 +112,6 @@ document.addEventListener("click", async (e) => {
             const paddedName = descuento.nameDescuento.padEnd(maxNameLength, ' ');
             descuentosText +=
                 `${paddedName}: S/ ${parseFloat(descuento.montoDescuento).toFixed(2)}\n`;
-
         });
 
         // MOSTRAR MODAL
@@ -124,13 +128,9 @@ document.addEventListener("click", async (e) => {
             descuentosText || "No hay descuentos registrados";
 
     } catch (error) {
-
         console.error(error);
-
         alert("Error al obtener detalle de planilla");
-
     }
-
 });
 
 // Cerrar modal al hacer clic en la X
@@ -149,6 +149,68 @@ document.addEventListener("click", (e) => {
     }
 });
 
+
+// Versión con animación de acordeón
+document.addEventListener('DOMContentLoaded', () => {
+    const selectConstancia = document.getElementById('tipoConstancia');
+    const panelEspecifico = document.getElementById('panel-especifico');
+    const panelRango = document.getElementById('panel-rango');
+    
+    function mostrarPanelConAnimacion(panel) {
+        if (!panel) return;
+        
+        panel.style.display = 'block';
+        panel.style.maxHeight = '0';
+        panel.style.overflow = 'hidden';
+        panel.style.transition = 'max-height 0.3s ease';
+        
+        // Forzar reflow
+        panel.offsetHeight;
+        
+        panel.style.maxHeight = panel.scrollHeight + 'px';
+        
+        // Después de la animación, remover el max-height para que sea responsive
+        setTimeout(() => {
+            panel.style.maxHeight = 'none';
+            panel.style.overflow = 'visible';
+        }, 300);
+    }
+    
+    function ocultarPanelConAnimacion(panel) {
+        if (!panel || panel.style.display === 'none') return;
+        
+        panel.style.maxHeight = panel.scrollHeight + 'px';
+        panel.style.overflow = 'hidden';
+        
+        // Forzar reflow
+        panel.offsetHeight;
+        
+        panel.style.maxHeight = '0';
+        
+        setTimeout(() => {
+            panel.style.display = 'none';
+            panel.style.maxHeight = 'none';
+            panel.style.overflow = 'visible';
+        }, 300);
+    }
+    
+    if (selectConstancia) {
+        selectConstancia.addEventListener('change', (event) => {
+            const valor = event.target.value;
+            
+            if (valor === 'Especifico') {
+                ocultarPanelConAnimacion(panelRango);
+                mostrarPanelConAnimacion(panelEspecifico);
+            } else if (valor === 'Rango') {
+                ocultarPanelConAnimacion(panelEspecifico);
+                mostrarPanelConAnimacion(panelRango);
+            } else {
+                ocultarPanelConAnimacion(panelEspecifico);
+                ocultarPanelConAnimacion(panelRango);
+            }
+        });
+    }
+});
 // carga info y planillas
 async function cargarDatos() {
     try {

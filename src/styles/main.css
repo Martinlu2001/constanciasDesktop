@@ -485,3 +485,8 @@ textarea:focus {
   border: 2px solid #555;
   outline: none; /* Removes the default browser focus ring */
 }
+.fs-label1 {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1a1a2e;
+}
