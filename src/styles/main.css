@@ -490,3 +490,171 @@ textarea:focus {
   font-weight: 600;
   color: #1a1a2e;
 }
+
+
+/* Panel Específico */
+.panel-constancia {
+    margin-top: 20px;
+    animation: slideDown 0.3s ease;
+}
+
+.fs-card {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border: 1px solid #ddd;
+}
+
+.fs-subtitle {
+    color: #666;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+/* Acordeón */
+.acordeon-container {
+    margin: 20px 0;
+}
+
+.acordeon-item {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    overflow: hidden;
+    background: white;
+}
+
+.acordeon-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: #f8f9fa;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.acordeon-header:hover {
+    background-color: #e9ecef;
+}
+
+.anio-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.checkbox-anio {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.anio-label {
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 0;
+}
+
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.acordeon-icono {
+    font-size: 20px;
+    font-weight: bold;
+    transition: transform 0.3s;
+    color: #666;
+}
+
+.acordeon-header.abierto .acordeon-icono {
+    transform: rotate(180deg);
+}
+
+.acordeon-contenido {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    background-color: white;
+}
+
+.acordeon-contenido.abierto {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+/* Grid de meses */
+.meses-grid {
+    padding: 15px 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 12px;
+}
+
+.mes-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.mes-item:hover {
+    background-color: #f0f0f0;
+}
+
+.checkbox-mes {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.mes-item span {
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* Acciones */
+.acciones-constancia {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #e0e0e0;
+    text-align: center;
+}
+
+.fs-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.fs-button:hover:not(:disabled) {
+    background-color: #0056b3;
+}
+
+.fs-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

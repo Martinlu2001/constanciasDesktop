@@ -1,3 +1,4 @@
+import { PDFDocument, StandardFonts, rgb } from 'pdf-lib'
 // LEER ID DESDE LA URL
 const params = new URLSearchParams(window.location.search);
 const idUsers = params.get('id');
@@ -46,13 +47,7 @@ function actualizarDataTable(planillas) {
     tbody.empty();
     
     if (!planillas || planillas.length === 0) {
-        /*tbody.html(`
-            <tr>
-                <td colspan="5" class="text-center text-muted">
-                    No hay planillas registradas para este usuario
-                </td>
-            </tr>
-        `);*/
+    
     } else {
         planillas.forEach(planilla => {
             tbody.append(`
@@ -150,7 +145,7 @@ document.addEventListener("click", (e) => {
 });
 
 
-// Versión con animación de acordeón
+// Abrir acordeon modo especifico o rango
 document.addEventListener('DOMContentLoaded', () => {
     const selectConstancia = document.getElementById('tipoConstancia');
     const panelEspecifico = document.getElementById('panel-especifico');
@@ -211,7 +206,411 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
-// carga info y planillas
+
+//cargar años fecha especifico
+const contenedor = document.getElementById('acordeon-anios');
+
+async function cargarAnios(){
+
+    const anios = await window.api.getConstanciaFechaEspecifica(idUsers);
+
+    contenedor.innerHTML = '';
+
+    anios.forEach(anio => {
+
+        contenedor.innerHTML += `
+            <div class="acordeon-item">
+
+                <div class="acordeon-header">
+
+                    <div class="anio-checkbox">
+                        <input 
+                            type="checkbox" 
+                            class="checkbox-anio"
+                            id="anio-${anio.idanioPlanillas}"
+                            data-anio="${anio.idanioPlanillas}"
+                        >
+
+                        <label 
+                            for="anio-${anio.idanioPlanillas}"
+                            class="anio-label"
+                        >
+                            ${anio.nameAnioPlanilla}
+                        </label>
+                    </div>
+
+                    <div class="header-controls">
+                        <span class="acordeon-icono">+</span>
+                    </div>
+
+                </div>
+
+                <div class="acordeon-contenido">
+                    <div class="meses-grid" id="meses-${anio.idanioPlanillas}">
+                    
+                    </div>
+                </div>
+
+            </div>
+        `;
+    });
+
+}
+
+//cargar meses fecha especifica
+document.addEventListener('click', async (e) => {
+
+    const header = e.target.closest('.acordeon-header');
+
+    if(!header) return;
+
+    // evitar abrir si clickean checkbox
+    if(
+        e.target.type === 'checkbox' ||
+        e.target.classList.contains('anio-label')
+    ){
+        return;
+    }
+
+    const item = header.parentElement;
+
+    const contenido = item.querySelector('.acordeon-contenido');
+
+    const icono = item.querySelector('.acordeon-icono');
+
+    // cerrar otros acordeones
+    document.querySelectorAll('.acordeon-contenido').forEach(c => {
+
+        if(c !== contenido){
+
+            c.classList.remove('abierto');
+
+            c.previousElementSibling.classList.remove('abierto');
+
+            const otroIcono =
+                c.previousElementSibling.querySelector('.acordeon-icono');
+
+            otroIcono.textContent = '+';
+        }
+    });
+
+    // abrir/cerrar actual
+    contenido.classList.toggle('abierto');
+
+    header.classList.toggle('abierto');
+
+    // icono
+    if(contenido.classList.contains('abierto')){
+        icono.textContent = '−';
+    }else{
+        icono.textContent = '+';
+    }
+
+    // OBTENER AÑO
+    const checkbox = header.querySelector('.checkbox-anio');
+
+    const idanio = checkbox.dataset.anio;
+
+    // CONTENEDOR MESES
+    const mesesContainer =
+        document.getElementById(`meses-${idanio}`);
+
+    // evitar volver a consultar
+    if(mesesContainer.innerHTML.trim() !== ''){
+        return;
+    }
+
+    // CONSULTAR MESES
+    const meses =
+        await window.api.getMesesPorAnio(idUsers, idanio);
+
+    // INSERTAR MESES
+    meses.forEach(mes => {
+
+        mesesContainer.innerHTML += `
+            <label class="mes-item">
+
+                <input
+                    type="checkbox"
+                    class="checkbox-mes"
+                    data-anio="${idanio}"
+                    data-mes="${mes.idmesPlanillas}"
+                    data-nombre="${mes.nameMesPlanilla}"
+                >
+
+                <span>${mes.nameMesPlanilla}</span>
+
+            </label>
+        `;
+    });
+
+});
+
+// Función para manejar selección de año
+function inicializarCheckboxesAnio() {
+    document.addEventListener('change', (e) => {
+        if (e.target.classList.contains('checkbox-anio')) {
+            const anio = e.target.dataset.anio;
+            const mesesContainer = document.getElementById(`meses-${anio}`);
+            
+            if (mesesContainer) {
+                const checkboxesMes = mesesContainer.querySelectorAll('.checkbox-mes');
+                checkboxesMes.forEach(mes => {
+                    mes.checked = e.target.checked;
+                });
+            }
+        }
+    });
+}
+
+
+//cargar años rango
+const anioInicio = document.getElementById('anio-inicio');
+const anioFin = document.getElementById('anio-fin');
+const mesInicio = document.getElementById('mes-inicio');
+const mesFin = document.getElementById('mes-fin');
+
+async function cargarAniosRango(){
+
+    const anios =
+        await window.api.getConstanciaFechaEspecifica(idUsers);
+
+    // limpiar
+    anioInicio.innerHTML =
+        '<option selected hidden>Año</option>';
+
+    anioFin.innerHTML =
+        '<option selected hidden>Año</option>';
+
+    anios.forEach(anio => {
+
+        const option = `
+            <option value="${anio.idanioPlanillas}">
+                ${anio.nameAnioPlanilla}
+            </option>
+        `;
+
+        anioInicio.innerHTML += option;
+        anioFin.innerHTML += option;
+    });
+
+}
+anioInicio.addEventListener('change', async () => {
+
+    const idanio = anioInicio.value;
+
+    const meses =
+        await window.api.getMesesPorAnio(idUsers, idanio);
+
+    mesInicio.innerHTML =
+        '<option selected hidden>Mes</option>';
+
+    meses.forEach(mes => {
+
+        mesInicio.innerHTML += `
+            <option value="${mes.idmesPlanillas}">
+                ${mes.nameMesPlanilla}
+            </option>
+        `;
+    });
+
+});
+anioFin.addEventListener('change', async () => {
+
+    const idanio = anioFin.value;
+
+    const meses =
+        await window.api.getMesesPorAnio(idUsers, idanio);
+
+    mesFin.innerHTML =
+        '<option selected hidden>Mes</option>';
+
+    meses.forEach(mes => {
+
+        mesFin.innerHTML += `
+            <option value="${mes.idmesPlanillas}">
+                ${mes.nameMesPlanilla}
+            </option>
+        `;
+    });
+
+});
+
+//imprimir rango
+/*const btnDescargar =
+    document.querySelector('.btn-primary');
+
+btnDescargar.addEventListener('click', async () => {
+
+    const anioInicioValue = anioInicio.options[anioInicio.selectedIndex].text;
+    const anioFinValue = anioFin.options[anioFin.selectedIndex].text;
+
+    const mesInicioValue = mesInicio.value;
+    const mesFinValue = mesFin.value;
+
+    const inicio =
+        parseInt(anioInicioValue + mesInicioValue.padStart(2, '0'));
+
+    const fin =
+        parseInt(anioFinValue + mesFinValue.padStart(2, '0'));
+
+    const datos =
+        await window.api.getConstanciaRango(
+            idUsers,
+            inicio,
+            fin
+        );
+
+    console.log(datos);
+
+});*/
+const btnDescargar =
+    document.querySelector('.btn-primary');
+
+btnDescargar.addEventListener('click', async () => {
+
+    let datosFinales = [];
+// PANELES
+    const panelEspecifico =
+        document.getElementById('panel-especifico');
+
+    const panelRango =
+        document.getElementById('panel-rango');
+
+    // =========================
+    // RANGO
+    // =========================
+    if(panelRango.style.display !== 'none'){
+const anioInicioValue =
+            anioInicio.options[anioInicio.selectedIndex].text;
+
+        const anioFinValue =
+            anioFin.options[anioFin.selectedIndex].text;
+
+        const mesInicioValue = mesInicio.value;
+        const mesFinValue = mesFin.value;
+
+        const inicio =
+            parseInt(
+                anioInicioValue +
+                mesInicioValue.padStart(2, '0')
+            );
+
+        const fin =
+            parseInt(
+                anioFinValue +
+                mesFinValue.padStart(2, '0')
+            );
+
+        const datos =
+            await window.api.getConstanciaRango(
+                idUsers,
+                inicio,
+                fin
+            );
+
+        datosFinales = datos;
+
+    }
+
+    // =========================
+    // ESPECIFICO
+    // =========================
+    if(panelEspecifico.style.display !== 'none'){
+ const mesesSeleccionados =
+            document.querySelectorAll(
+                '.checkbox-mes:checked'
+            );
+
+        const fechas = [];
+
+        mesesSeleccionados.forEach(mes => {
+
+            fechas.push({
+                idanio: mes.dataset.anio,
+                idmes: mes.dataset.mes
+            });
+
+        });
+
+        const datos =
+            await window.api.getConstanciaEspecifica(
+                idUsers,
+                fechas
+            );
+
+        datosFinales = datos;
+
+    }
+
+    // =========================
+    // CREAR PDF
+    // =========================
+    const pdfDoc = await PDFDocument.create();
+
+    const page =
+        pdfDoc.addPage([600, 800]);
+
+    const font =
+        await pdfDoc.embedFont(
+            StandardFonts.Helvetica
+        );
+
+    let y = 750;
+
+    page.drawText('CONSTANCIA DE PLANILLAS', {
+        x: 180,
+        y,
+        size: 10,
+        font,
+        color: rgb(0, 0, 0)
+    });
+
+    y -= 50;
+
+    datosFinales.forEach((item, index) => {
+
+        page.drawText(
+            `${index + 1}. ${item.mes} ${item.anio}`,
+            {
+                x: 50,
+                y,
+                size: 7,
+                font
+            }
+        );
+
+        y -= 25;
+
+    });
+
+    // =========================
+    // DESCARGAR PDF
+    // =========================
+    const pdfBytes =
+        await pdfDoc.save();
+
+    const blob =
+        new Blob([pdfBytes], {
+            type: 'application/pdf'
+        });
+
+    const url =
+        URL.createObjectURL(blob);
+
+    const a =
+        document.createElement('a');
+
+    a.href = url;
+    a.download = 'constancia.pdf';
+
+    a.click();
+
+    URL.revokeObjectURL(url);
+
+});
+
+// carga info personal y planillas(datatable)
 async function cargarDatos() {
     try {
         // BUSCAR USUARIO
@@ -231,7 +630,7 @@ async function cargarDatos() {
 
         // BUSCAR PLANILLAS
         const planillas = await window.api.getUserPlanilla(idUsers);
-        console.log('Planillas cargadas:', planillas);
+        //console.log('Planillas cargadas:', planillas);
         
         // Actualizar la tabla con los datos
         actualizarDataTable(planillas);
@@ -259,6 +658,9 @@ document.getElementById("regresar").onclick = function () {
 };
 
 // INICIAR CUANDO EL DOM ESTÉ LISTO
-$(document).ready(function() {
+$(document).ready(async function() {
     cargarDatos();
+    await cargarAnios();
+    cargarAniosRango();
+    inicializarCheckboxesAnio();
 });

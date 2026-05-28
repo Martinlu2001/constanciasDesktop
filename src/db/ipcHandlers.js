@@ -23,6 +23,48 @@ export default function setUpHandlers(db){
     ipcMain.handle("constancias:getDetallePlanilla", async (event, idPlanillas) => {
         return db.getDetallePlanilla(idPlanillas);
     });
+
+    //mostrar fechas especificas
+    /*ipcMain.handle("constancias:getConstanciaFechaEspecifica", async (event) => {
+        return db.getConstanciaFechaEspecifica();
+    });*/
+    ipcMain.handle("constancias:getConstanciaFechaEspecifica", async (event, idUsers) => {
+        return db.getConstanciaFechaEspecifica(idUsers);
+    });
+    ipcMain.handle(
+        "constancias:getMesesPorAnio",
+        async (event, idUsers, idanioPlanillas) => {
+
+            return db.getMesesPorAnio(idUsers, idanioPlanillas);
+        }
+    );
+    //mostrar rango
+    /*ipcMain.handle("constancias:getConstanciaRango", async (event, idPlanillas) => {
+        return db.getConstanciaRango(idPlanillas);
+    });*/
+        ipcMain.handle(
+        "constancias:getConstanciaRango",
+        async (event, idUsers, inicio, fin) => {
+
+            return db.getConstanciaRango(
+                idUsers,
+                inicio,
+                fin
+            );
+
+        }
+    );
+
+        ipcMain.handle(
+        "constancias:getConstanciaEspecifica",
+        async (event, idUsers, fechas) => {
+
+            return db.getConstanciaEspecifica(
+                idUsers,
+                fechas
+            );
+        }
+    );
     //generar constancia
     /*ipcMain.handle('constancias:',(_,)=>{
 

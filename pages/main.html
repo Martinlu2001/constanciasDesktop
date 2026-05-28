@@ -5,11 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../src/styles/main.css">
-
     <link href="../public/assets/DataTables/datatables.css" rel="stylesheet" type="text/css">
-    <!-- <link href="../public/assets/DataTables/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="../public/assets/DataTables/dataTables.bootstrap5.css" rel="stylesheet" type="text/css"> -->
-    <!-- <link href="../public/assets/DataTables/datatables.min.css" rel="stylesheet"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
         integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -95,58 +91,44 @@
                     <label class="fs-label" for="">Modo de seleccion</label>
                     <select class="fs-input" aria-label="Default select example" name="select" id="tipoConstancia">
                         <option selected hidden>Elija..</option>
-                        <option value="Especifico" class="constancia-especifica">Especifico</option>
-                        <option value="Rango" class="constancia-rango">Rango</option>
+                        <option value="Especifico" class="constancia-especifica" id="constancia-especifica">Fecha específica</option>
+                        <option value="Rango" class="constancia-rango" id="constancia-rango">Rango de fechas</option>
                     </select>
                 </div>
                 <div class="fs-field">
 
                 </div>
             </div>
-
-            <!-- <div class="fs-row">
-                <div class="fs-field">
-                    <label class="fs-label" for="">Desde</label>
-                    <select class="fs-input" aria-label="Default select example">
-                        <option selected>Open this select menu</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                    </select>
-                </div>
-                <div class="fs-field">
-                    <label class="fs-label" for="">Hasta</label>
-                    <select class="fs-input" aria-label="Default select example">
-                        <option selected>Open this select menu</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                    </select>
-                </div>
-            </div> -->
         </div>
 
-        <!-- Contenedor para Especifico -->
+        <!-- Panel para Especifico con acordeón de años y meses -->
         <div id="panel-especifico" class="panel-constancia" style="display: none;">
             <div class="fs-card">
-                <h4>Constancia Fecha Específica</h4>
-                <div class="fs-form-group">
-                    <label class="fs-label">Seleccione Fecha:</label>
-                    <input type="date" class="fs-input" id="fechaEspecifica">
-                </div>
-                <div class="fs-row1">
-                    <div class="fs-col">
-                        <label class="fs-label1">HABERES</label>
-                        <!-- Aquí tu contenido de haberes -->
-                    </div>
-                    <div class="fs-col">
-                        <label class="fs-label1">DESCUENTOS</label>
-                        <!-- Aquí tu contenido de descuentos -->
-                    </div>
-                </div>
-                <div class="fs-button-group">
-                    <button class="btn btn-primary btn-sm" type=""><i class="fa fa-print"></i> Descargar
-                        constancia</button>
+                <h4>Constancia por Fecha Específica</h4>
+                <p class="fs-subtitle">Seleccione los meses que desea incluir en la constancia</p>
+                
+                <!-- Acordeón de Años -->
+                <div class="acordeon-container" id="acordeon-anios">
+                    
+                    <!-- <div class="acordeon-item">
+                        <div class="acordeon-header">
+                            <div class="anio-checkbox">
+                                <input type="checkbox" class="checkbox-anio" id="anio-2024" data-anio="2024">
+                                <label for="anio-2024" class="anio-label">1983</label>
+                            </div>
+                            <div class="header-controls">
+                                <span class="acordeon-icono">+</span>
+                            </div>
+                        </div>
+                        <div class="acordeon-contenido">
+                            <div class="meses-grid">
+                                <label class="mes-item">
+                                    <input type="checkbox" class="checkbox-mes" data-anio="2024" data-mes="1" data-nombre="Enero">
+                                    <span>Enero</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -155,33 +137,42 @@
         <div id="panel-rango" class="panel-constancia" style="display: none;">
             <div class="fs-card">
                 <h4>Constancia por Rango de Fechas</h4>
-                <div class="fs-form-group">
-                    <label class="fs-label">:</label>
-                    <input type="date" class="fs-input" id="fechaInicio">
-                </div>
-                <div class="fs-form-group">
-                    <label class="fs-label">Fecha Fin:</label>
-                    <input type="date" class="fs-input" id="fechaFin">
-                </div>
+                <br>
                 <div class="fs-row1">
+                    <label class="fs-label">Fecha inicio:</label>
                     <div class="fs-col">
-                        <label class="fs-label1">HABERES</label>
-                        <!-- Aquí tu contenido de haberes -->
+                        <select class="fs-input" aria-label="Default select example" name="select" id="anio-inicio">
+                            <option selected hidden>Año</option>
+                        </select>
                     </div>
+                    <br>
                     <div class="fs-col">
-                        <label class="fs-label1">DESCUENTOS</label>
-                        <!-- Aquí tu contenido de descuentos -->
+                        <select class="fs-input" aria-label="Default select example" name="select" id="mes-inicio">
+                            <option selected hidden>Mes</option>
+                        </select>
                     </div>
                 </div>
-                <div class="fs-button-group">
-                    <button class="btn btn-primary btn-sm" type=""><i class="fa fa-print"></i> Descargar
-                        constancia</button>
+
+                <div class="fs-row1">
+                    <label class="fs-label">Fecha fin:</label>
+                    <div class="fs-col">
+                        <select class="fs-input" aria-label="Default select example" name="select" id="anio-fin">
+                            <option selected hidden>Año</option>
+                        </select>
+                    </div>
+                    <br>
+                    <div class="fs-col">
+                        <select class="fs-input" aria-label="Default select example" name="select" id="mes-fin">
+                            <option selected hidden>Mes</option>
+                        </select>
+                    </div>
                 </div>
             </div>
         </div>
-        <!-- <div class="fs-button-group">
+        <br>
+        <div class="fs-button-group">
             <button class="btn btn-primary btn-sm" type=""><i class="fa fa-print"></i> Descargar constancia</button>
-        </div> -->
+        </div>
     </div>
 
     <!-- modal para ver haberes y descuentos-->
@@ -207,16 +198,7 @@
 
     <!-- scripts -->
     <script src="../public/assets/Jquery/jquery.js"></script>
-    <!-- <script src="../public/assets/Jquery/jquery1.js"></script> -->
-    <!-- <script src="../public/assets/DataTables/bootstrap.bundle.min.js"></script>
-    <script src="../public/assets/DataTables/dataTables.bootstrap5.js"></script> -->
     <script src="../public/assets/DataTables/datatables.js"></script>
-    <!-- <script src="../public/assets/DataTables/datatables.min.js"></script> -->
-    <!-- <script>
-        $(document).ready(function() {
-            $('#dataTable').DataTable();
-        });
-    </script> -->
     <script type="module" src="../src/mainRenderer.js"></script>
 </body>
 
