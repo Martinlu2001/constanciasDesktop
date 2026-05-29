@@ -41,7 +41,7 @@ function inicializarDataTable() {
     }
 }
 
-// FUNCIÓN PARA ACTUALIZAR LOS DATOS
+// FUNCIÓN PARA ACTUALIZAR LOS DATOS EN DATATABLE
 function actualizarDataTable(planillas) {
     const tbody = $('#body-table');
     tbody.empty();
@@ -143,7 +143,6 @@ document.addEventListener("click", (e) => {
         modal.style.display = 'none';
     }
 });
-
 
 // Abrir acordeon modo especifico o rango
 document.addEventListener('DOMContentLoaded', () => {
@@ -287,8 +286,7 @@ document.addEventListener('click', async (e) => {
 
             c.previousElementSibling.classList.remove('abierto');
 
-            const otroIcono =
-                c.previousElementSibling.querySelector('.acordeon-icono');
+            const otroIcono = c.previousElementSibling.querySelector('.acordeon-icono');
 
             otroIcono.textContent = '+';
         }
@@ -312,8 +310,7 @@ document.addEventListener('click', async (e) => {
     const idanio = checkbox.dataset.anio;
 
     // CONTENEDOR MESES
-    const mesesContainer =
-        document.getElementById(`meses-${idanio}`);
+    const mesesContainer = document.getElementById(`meses-${idanio}`);
 
     // evitar volver a consultar
     if(mesesContainer.innerHTML.trim() !== ''){
@@ -321,8 +318,7 @@ document.addEventListener('click', async (e) => {
     }
 
     // CONSULTAR MESES
-    const meses =
-        await window.api.getMesesPorAnio(idUsers, idanio);
+    const meses = await window.api.getMesesPorAnio(idUsers, idanio);
 
     // INSERTAR MESES
     meses.forEach(mes => {
@@ -363,7 +359,6 @@ function inicializarCheckboxesAnio() {
     });
 }
 
-
 //cargar años rango
 const anioInicio = document.getElementById('anio-inicio');
 const anioFin = document.getElementById('anio-fin');
@@ -372,15 +367,12 @@ const mesFin = document.getElementById('mes-fin');
 
 async function cargarAniosRango(){
 
-    const anios =
-        await window.api.getConstanciaFechaEspecifica(idUsers);
+    const anios = await window.api.getConstanciaFechaEspecifica(idUsers);
 
     // limpiar
-    anioInicio.innerHTML =
-        '<option selected hidden>Año</option>';
+    anioInicio.innerHTML ='<option selected hidden>Año</option>';
 
-    anioFin.innerHTML =
-        '<option selected hidden>Año</option>';
+    anioFin.innerHTML ='<option selected hidden>Año</option>';
 
     anios.forEach(anio => {
 
@@ -395,15 +387,14 @@ async function cargarAniosRango(){
     });
 
 }
+
 anioInicio.addEventListener('change', async () => {
 
     const idanio = anioInicio.value;
 
-    const meses =
-        await window.api.getMesesPorAnio(idUsers, idanio);
+    const meses = await window.api.getMesesPorAnio(idUsers, idanio);
 
-    mesInicio.innerHTML =
-        '<option selected hidden>Mes</option>';
+    mesInicio.innerHTML ='<option selected hidden>Mes</option>';
 
     meses.forEach(mes => {
 
@@ -415,15 +406,14 @@ anioInicio.addEventListener('change', async () => {
     });
 
 });
+
 anioFin.addEventListener('change', async () => {
 
     const idanio = anioFin.value;
 
-    const meses =
-        await window.api.getMesesPorAnio(idUsers, idanio);
+    const meses = await window.api.getMesesPorAnio(idUsers, idanio);
 
-    mesFin.innerHTML =
-        '<option selected hidden>Mes</option>';
+    mesFin.innerHTML = '<option selected hidden>Mes</option>';
 
     meses.forEach(mes => {
 
@@ -436,56 +426,23 @@ anioFin.addEventListener('change', async () => {
 
 });
 
-//imprimir rango
-/*const btnDescargar =
-    document.querySelector('.btn-primary');
-
-btnDescargar.addEventListener('click', async () => {
-
-    const anioInicioValue = anioInicio.options[anioInicio.selectedIndex].text;
-    const anioFinValue = anioFin.options[anioFin.selectedIndex].text;
-
-    const mesInicioValue = mesInicio.value;
-    const mesFinValue = mesFin.value;
-
-    const inicio =
-        parseInt(anioInicioValue + mesInicioValue.padStart(2, '0'));
-
-    const fin =
-        parseInt(anioFinValue + mesFinValue.padStart(2, '0'));
-
-    const datos =
-        await window.api.getConstanciaRango(
-            idUsers,
-            inicio,
-            fin
-        );
-
-    console.log(datos);
-
-});*/
-const btnDescargar =
-    document.querySelector('.btn-primary');
+//imprimir
+const btnDescargar = document.querySelector('.btn-primary');
 
 btnDescargar.addEventListener('click', async () => {
 
     let datosFinales = [];
-// PANELES
-    const panelEspecifico =
-        document.getElementById('panel-especifico');
+    // PANELES
+    const panelEspecifico = document.getElementById('panel-especifico');
 
-    const panelRango =
-        document.getElementById('panel-rango');
+    const panelRango = document.getElementById('panel-rango');
 
     // =========================
     // RANGO
     // =========================
     if(panelRango.style.display !== 'none'){
-const anioInicioValue =
-            anioInicio.options[anioInicio.selectedIndex].text;
-
-        const anioFinValue =
-            anioFin.options[anioFin.selectedIndex].text;
+        const anioInicioValue = anioInicio.options[anioInicio.selectedIndex].text;
+        const anioFinValue = anioFin.options[anioFin.selectedIndex].text;
 
         const mesInicioValue = mesInicio.value;
         const mesFinValue = mesFin.value;
@@ -508,16 +465,30 @@ const anioInicioValue =
                 inicio,
                 fin
             );
+            //console.log(datos);
+            datos.forEach(planilla => {
 
+                const haberes =
+                    planilla.haberes
+                    ? planilla.haberes.split(',')
+                    : [];
+
+                const descuentos =
+                    planilla.descuentos
+                    ? planilla.descuentos.split(',')
+                    : [];
+
+                //console.log(haberes);
+                //console.log(descuentos);
+            });
         datosFinales = datos;
-
     }
 
     // =========================
     // ESPECIFICO
     // =========================
     if(panelEspecifico.style.display !== 'none'){
- const mesesSeleccionados =
+        const mesesSeleccionados =
             document.querySelectorAll(
                 '.checkbox-mes:checked'
             );
@@ -538,9 +509,27 @@ const anioInicioValue =
                 idUsers,
                 fechas
             );
+            //console.log(datos);
+        datos.forEach(planilla => {
 
-        datosFinales = datos;
+            const haberes =
+                planilla.haberes
+                ? String(planilla.haberes)
+                    .split(',')
+                    .map(h => h.trim())
+                : [];
 
+            const descuentos =
+                planilla.descuentos
+                ? String(planilla.descuentos)
+                    .split(',')
+                    .map(d => d.trim())
+                : [];
+
+            //console.log(haberes);
+            //console.log(descuentos);
+                datosFinales = datos;
+        });
     }
 
     // =========================
@@ -548,42 +537,387 @@ const anioInicioValue =
     // =========================
     const pdfDoc = await PDFDocument.create();
 
-    const page =
-        pdfDoc.addPage([600, 800]);
+    let page = pdfDoc.addPage();
+    const { width, height } = page.getSize();
 
+    let y = height - 50;
     const font =
         await pdfDoc.embedFont(
             StandardFonts.Helvetica
         );
 
-    let y = 750;
+    const logoBytes =
+        await fetch('../public/unt.png')
+        .then(res => res.arrayBuffer());
 
-    page.drawText('CONSTANCIA DE PLANILLAS', {
-        x: 180,
-        y,
-        size: 10,
-        font,
-        color: rgb(0, 0, 0)
-    });
+    const logo =
+        await pdfDoc.embedPng(logoBytes);
 
-    y -= 50;
 
-    datosFinales.forEach((item, index) => {
+    const marcaBytes =
+        await fetch('../public/unt.png')
+        .then(res => res.arrayBuffer());
+
+    const marcaAgua =
+        await pdfDoc.embedPng(marcaBytes);
+        page.drawText('CONSTANCIA DE HABERES Y DESCUENTOS', {
+            x: 170,
+            y:height - 80,
+            size: 14,
+            font,
+            color: rgb(0, 0, 0)
+        });
+
+        y -= 50;
+
+    function dibujarHeader(usuario){
+        // LOGO
+        page.drawImage(logo, {
+            x: 40,
+            y: height - 70,
+            width: 40,
+            height: 40
+        });
+
+        // TITULOS
+        page.drawText('UNIVERSIDAD NACIONAL DE TRUJILLO', {
+            x: 90,
+            y: height - 45,
+            size: 10,
+            font
+        });
+
+        page.drawText('Unidad de Tesorería', {
+            x: 90,
+            y: height - 60,
+            size: 9,
+            font
+        });
+
+        // USUARIO
+        page.drawText(`CÓDIGO UNT: ${usuario.idUsers}`, {
+            x: 50,
+            y: height - 95,
+            size: 9,
+            font
+        });
 
         page.drawText(
-            `${index + 1}. ${item.mes} ${item.anio}`,
+            `NOMBRES: ${usuario.apelliPatUser} ${usuario.apelliMatUser} ${usuario.nameUser}`,
             {
                 x: 50,
-                y,
-                size: 7,
+                y: height - 110,
+                size: 9,
                 font
             }
         );
+    }
 
-        y -= 25;
+    function dibujarMarcaAgua(){
+        page.drawImage(marcaAgua, {
+            x: 120,
+            y: 250,
+            width: 350,
+            height: 350,
+            opacity: 0.08
+        });
+    }
 
+    function crearNuevaPagina(usuario){
+        page = pdfDoc.addPage();
+
+        dibujarMarcaAgua();
+        dibujarHeader(usuario);
+
+        y = height - 130;
+    }
+
+    function verificarNuevaPagina(usuario){
+        if(y < 70){
+            crearNuevaPagina(usuario);
+        }
+    }
+   
+    // =========================
+    // DATOS DEL USUARIO
+    // =========================
+
+    const usuario = datosFinales[0];
+    dibujarMarcaAgua();
+    dibujarHeader(usuario);
+
+    y -= 30;
+    verificarNuevaPagina(usuario);
+
+    // =========================
+    // AGRUPAR POR AÑO
+    // =========================
+
+    const agrupado = {};
+
+    datosFinales.forEach(item => {
+        if(!agrupado[item.anio]){
+            agrupado[item.anio] = [];
+        }
+
+        agrupado[item.anio].push(item);
     });
 
+    // =========================
+    // IMPRIMIR
+    // =========================
+
+    Object.keys(agrupado).forEach(anio => {
+
+        // AÑO SOLO UNA VEZ
+        page.drawText(`AÑO: ${anio}`, {
+            x: 50,
+            y,
+            size: 11,
+            font
+        });
+
+        y -= 20;
+        verificarNuevaPagina(usuario);
+
+        agrupado[anio].forEach(planilla => {
+            // MES
+            page.drawText(`MES: ${planilla.mes}`, {
+                x: 70,
+                y,
+                size: 9,
+                font
+            });
+
+            y -= 15;
+            verificarNuevaPagina(usuario);
+            // HABERES
+            page.drawText(`HABERES:`, {
+                x: 90,
+                y,
+                size: 8,
+                font
+            });
+
+            y -= 12;
+            verificarNuevaPagina(usuario);
+            const haberes =
+                planilla.haberes
+                ? planilla.haberes.split(',')
+                : [];
+
+            haberes.forEach(haber => {
+                const [nombre, monto] = haber.split(':');
+            
+                page.drawText(`- ${nombre}`, {
+                    x: 110,
+                    y,
+                    size: 7,
+                    font
+                });
+
+                    // MONTO
+                    const montHaber = `${monto}`;
+
+                    const textanchomh =
+                        font.widthOfTextAtSize(
+                            montHaber,
+                            7
+                        );
+
+                    page.drawText(
+                        montHaber.trim(),
+                        {
+                            x: 500 - textanchomh,
+                            y,
+                            size: 7,
+                            font
+                        }
+                    );
+
+                y -= 15;
+                verificarNuevaPagina(usuario);
+            });
+
+            //total haberes
+            page.drawText(
+                `TOTAL HABERES:`,
+                {
+                    x: 90,
+                    y,
+                    size: 8,
+                    font
+                }
+            );
+
+            const totHaber = `${planilla.totalHaberes}`;
+
+            const textanchoth =
+                font.widthOfTextAtSize(
+                    totHaber,
+                    7
+                );
+
+            page.drawText(
+                totHaber,
+                {
+                    x: 500 - textanchoth,
+                    y,
+                    size: 7,
+                    font
+                }
+            );
+
+            y -= 15;
+            verificarNuevaPagina(usuario);
+
+            // DESCUENTOS
+            page.drawText(`DESCUENTOS:`, {
+                x: 90,
+                y,
+                size: 8,
+                font
+            });
+
+            y -= 12;
+            verificarNuevaPagina(usuario);
+            const descuentos =
+                planilla.descuentos
+                ? planilla.descuentos.split(',')
+                : [];
+
+            descuentos.forEach(descuento => {
+
+                const [nombre, monto] = descuento.split(':');
+            
+                page.drawText(`- ${nombre}`, {
+                    x: 110,
+                    y,
+                    size: 7,
+                    font
+                });
+
+                // MONTO
+
+                const montDesc = `${monto}`;
+
+                const textanchomd =
+                    font.widthOfTextAtSize(
+                        montDesc,
+                        7
+                    );
+
+                page.drawText(
+                    montDesc.trim(),
+                    {
+                        x: 500 - textanchomd,
+                        y,
+                        size: 7,
+                        font
+                    }
+                );
+
+                y -= 15;
+                verificarNuevaPagina(usuario);
+            });
+
+            page.drawText(`TOTAL DESCUENTOS:`, {
+                x: 90,
+                y,
+                size: 8,
+                font,
+            });
+
+            const totDesc = `${planilla.totalDescuentos}`;
+
+            const textanchotd =
+                font.widthOfTextAtSize(
+                    totDesc,
+                    7
+                );
+
+            page.drawText(
+                totDesc,
+                {
+                    x: 500 - textanchotd,
+                    y,
+                    size: 7,
+                    font
+                }
+            );
+            y -= 15;
+            verificarNuevaPagina(usuario);
+
+            page.drawText(
+                `IMPORTE NETO:`,
+                {
+                    x: 90,
+                    y,
+                    size: 8,
+                    font
+                }
+            );
+
+            const liquidoTexto = `${planilla.liquido}`;
+
+            const textanchotl =
+                font.widthOfTextAtSize(
+                    liquidoTexto,
+                    7
+                );
+
+            page.drawText(
+                liquidoTexto,
+                {
+                    x: 500 - textanchotl,
+                    y,
+                    size: 7,
+                    font
+                }
+            );
+            y -= 15;
+            verificarNuevaPagina(usuario);
+        });
+    });
+        // =========================
+        // ESPACIO PARA FIRMAS
+        // =========================
+
+    y -= 40;
+
+    if(y < 120){
+        crearNuevaPagina(usuario);
+    }
+    y = height-750;
+
+    function textoCentrado(texto, centroX, y, size){
+        const width =
+            font.widthOfTextAtSize(
+                texto,
+                size
+            );
+
+        page.drawText(texto, {
+            x: centroX - (width / 2),
+            y,
+            size,
+            font
+        });
+
+    }
+    textoCentrado(
+        'JEFE DE EGRESOS',
+        145,
+        y,
+        9
+    );
+
+    textoCentrado(
+        'JEFE DE TESORERIA',
+        425,
+        y,
+        9
+    );
     // =========================
     // DESCARGAR PDF
     // =========================
@@ -630,7 +964,6 @@ async function cargarDatos() {
 
         // BUSCAR PLANILLAS
         const planillas = await window.api.getUserPlanilla(idUsers);
-        //console.log('Planillas cargadas:', planillas);
         
         // Actualizar la tabla con los datos
         actualizarDataTable(planillas);
@@ -641,9 +974,7 @@ async function cargarDatos() {
         // Evento para los botones "Ver" (delegación de eventos)
         $('#dataTable').off('click', '.ver-planilla').on('click', '.ver-planilla', function() {
             const idPlanilla = $(this).data('id');
-            console.log('Ver planilla ID:', idPlanilla);
-            // Aquí puedes abrir un modal o redirigir
-            // alert('Ver planilla ' + idPlanilla);
+            //console.log('Ver planilla ID:', idPlanilla);
         });
         
     } catch (error) {
